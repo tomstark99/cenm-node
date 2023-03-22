@@ -1,0 +1,19 @@
+# generated certificates
+certificates/*.jks
+
+# jar files
+**/*.jar
+
+# run-time dirs
+additional-node-infos/
+artemis/
+brokers/
+logs/
+h2/
+shell-commands/
+ssh/
+
+# run-time files
+network-parameters
+nodeInfo*
+process-id
