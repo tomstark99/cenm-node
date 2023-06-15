@@ -1,17 +1,16 @@
+#!/bin/bash
+
 download () {
-	wget -q --show-progress --user $1 --password $2 https://software.r3.com/artifactory/corda-releases/net/corda/corda/$3/corda-$3.jar || echo "Corda version ${3} not found."
-	wget -q --show-progress --user $1 --password $2 https://software.r3.com/artifactory/corda-releases/net/corda/corda-shell/$3/corda-shell-$3.jar || echo "Corda shell version ${3} not found."
+	curl --progress-bar -u $1:$2 -O https://software.r3.com/artifactory/corda-releases/net/corda/corda/$3/corda-$3.jar || echo "Corda version ${3} not found."
+	curl --progress-bar -u $1:$2 -O https://software.r3.com/artifactory/corda-releases/net/corda/corda-shell/$3/corda-shell-$3.jar || echo "Corda shell version ${3} not found."
 	mv ./corda-shell-$3.jar ./drivers/
 }
 
-
-
 print_usage () {
-cat << EOF
-Dowload your corda jar with:
-
-	./dowload.sh -u <first>.<last>@<company>.com -p <api_key> -v <corda_version>
-EOF
+cat << EOL
+Dowload your Corda jar with:
+  ./dowload.sh -u <first>.<last>@r3.com -p <api_key> -v <corda_version>
+EOL
 }
 
 USERNAME=
@@ -32,5 +31,10 @@ do
 			exit;;
 	esac
 done
+
+if [ -z "$USERNAME" ] || [ -z "$PASSWORD" ] || [ -z "$VERSION" ]; then
+	print_usage
+	exit
+fi
 
 download "$USERNAME" "$PASSWORD" "$VERSION"
