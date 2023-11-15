@@ -1,12 +1,11 @@
 # generated certificates
-certificates/*.jks
+**/*.jks
 
 # jar files
 **/*.jar
 
 # run-time dirs
 additional-node-infos/
-artemis/
 brokers/
 logs/
 h2/
