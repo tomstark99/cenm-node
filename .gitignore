@@ -4,6 +4,9 @@ certificates/*.jks
 # jar files
 **/*.jar
 
+# db files
+**/*.db
+
 # run-time dirs
 additional-node-infos/
 artemis/
@@ -17,3 +20,7 @@ ssh/
 network-parameters
 nodeInfo*
 process-id
+
+# hsm files [credentials should not be commited to github
+securosys.conf
+primus.keystore
