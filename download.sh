@@ -1,8 +1,8 @@
 #!/bin/bash
 
 download () {
-	curl --progress-bar -u $1:$2 -O https://software.r3.com/artifactory/corda-releases/net/corda/corda/$3/corda-$3.jar || echo "Corda version ${3} not found."
-	curl --progress-bar -u $1:$2 -O https://software.r3.com/artifactory/corda-releases/net/corda/corda-shell/$3/corda-shell-$3.jar || echo "Corda shell version ${3} not found."
+	curl --progress-bar -u $1:$2 -O https://software.r3.com/artifactory/r3-corda-releases/com/r3/corda/corda/$3/corda-$3.jar || echo "Corda version ${3} not found."
+	curl --progress-bar -u $1:$2 -O https://software.r3.com/artifactory/r3-corda-releases/com/r3/corda/corda-shell/$3/corda-shell-$3.jar || echo "Corda shell version ${3} not found."
 	mv ./corda-shell-$3.jar ./drivers/
 }
 
@@ -36,5 +36,7 @@ if [ -z "$USERNAME" ] || [ -z "$PASSWORD" ] || [ -z "$VERSION" ]; then
 	print_usage
 	exit
 fi
+
+echo "Downloading Corda v${VERSION}"
 
 download "$USERNAME" "$PASSWORD" "$VERSION"
