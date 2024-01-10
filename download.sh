@@ -4,6 +4,9 @@ download () {
 	curl --progress-bar -u $1:$2 -O https://software.r3.com/artifactory/r3-corda-releases/com/r3/corda/corda/$3/corda-$3.jar || echo "Corda version ${3} not found."
 	curl --progress-bar -u $1:$2 -O https://software.r3.com/artifactory/r3-corda-releases/com/r3/corda/corda-shell/$3/corda-shell-$3.jar || echo "Corda shell version ${3} not found."
 	mv ./corda-shell-$3.jar ./drivers/
+	curl --progress-bar -u $1:$2 -O https://software.r3.com/artifactory/corda-releases/net/corda/corda-finance-contracts/$3/corda-finance-contracts-$3.jar || echo "Corda finance contracts version ${3} not found."
+	curl --progress-bar -u $1:$2 -O https://software.r3.com/artifactory/corda-releases/net/corda/corda-finance-workflows/$3/corda-finance-workflows-$3.jar || echo "Corda finance workflows version ${3} not found."
+	mv ./corda-finance-*-$3.jar ./cordapps/
 }
 
 print_usage () {
