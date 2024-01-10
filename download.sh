@@ -11,7 +11,7 @@ download () {
 
 print_usage () {
 cat << EOL
-Dowload your Corda jar with:
+Dowload your Corda jar with: (use -o to overwrite existing plugin versions)
   ./dowload.sh -u <first>.<last>@r3.com -p <api_key> -v <corda_version>
 EOL
 }
@@ -19,8 +19,9 @@ EOL
 USERNAME=
 PASSWORD=
 VERSION=
+OVERWRITE=
 
-while getopts 'u:p:v:' flag
+while getopts 'u:p:v:o' flag
 do
 	case "${flag}" in
 		u)
@@ -29,6 +30,8 @@ do
 			PASSWORD=${OPTARG};;
 		v)
 			VERSION=${OPTARG};;
+		o)
+			OVERWRITE=true;;
 		*)
 			print_usage
 			exit;;
@@ -38,6 +41,12 @@ done
 if [ -z "$USERNAME" ] || [ -z "$PASSWORD" ] || [ -z "$VERSION" ]; then
 	print_usage
 	exit
+fi
+
+if [ "$OVERWRITE" = true ]; then
+	rm -rf corda-*.jar > /dev/null 2>&1
+	rm -rf drivers/corda-shell-*.jar > /dev/null 2>&1
+	rm -rf cordapps/corda-finance-*-*.jar > /dev/null 2>&1
 fi
 
 echo "Downloading Corda v${VERSION}"
